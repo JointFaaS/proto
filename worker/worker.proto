@@ -14,6 +14,7 @@ service Worker {
     rpc InitFunction(InitFunctionRequest) returns (InitFunctionResponse) {}
     rpc Metrics(MetricsRequest) returns (MetricsResponse) {}
     rpc GetHeartBeat(stream HeartBeatRequest) returns (stream HeartBeatResponse) {}
+    rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResp) {}
 }
 
 message InvokeRequest {
@@ -94,4 +95,16 @@ message HeartBeatRequest {
 
 message HeartBeatResponse {
     string nonce = 1;
+}
+
+message CreateContainerRequest {
+    string funcName = 1;
+}
+
+message CreateContainerResp {
+    enum Code {
+        OK = 0;
+        NO_SUCH_FUNCTION = 1;
+    }
+    Code code = 1;
 }
