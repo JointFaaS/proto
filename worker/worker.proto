@@ -15,6 +15,7 @@ service Worker {
     rpc Metrics(MetricsRequest) returns (MetricsResponse) {}
     rpc GetHeartBeat(stream HeartBeatRequest) returns (stream HeartBeatResponse) {}
     rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResp) {}
+    rpc DeleteContainer(DeleteContainerRequest) returns (DeleteContainerResp) {}
 }
 
 message InvokeRequest {
@@ -64,7 +65,7 @@ message ResetResponse {
 }
 
 message InitFunctionRequest {
-	string funcName = 1;
+    string funcName = 1;
     string image = 2;
     string runtime = 3;
     string codeURI = 4;
@@ -82,7 +83,7 @@ message InitFunctionResponse {
 }
 
 message MetricsRequest {
-    
+
 }
 
 message MetricsResponse {
@@ -105,6 +106,20 @@ message CreateContainerResp {
     enum Code {
         OK = 0;
         NO_SUCH_FUNCTION = 1;
+    }
+    Code code = 1;
+}
+
+message DeleteContainerRequest {
+    string funcName = 1;
+    int32 num = 2;
+}
+
+message DeleteContainerResp {
+    enum Code {
+        OK = 0;
+        NO_RUNTIME = 1;
+        NO_SUCH_FUNCTION = 2;
     }
     Code code = 1;
 }
